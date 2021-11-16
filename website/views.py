@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, jsonify
 from flask.helpers import flash
 from flask_login import login_required, current_user
-from .models import Note
+from .models import Note, Listing
 from . import db
 import json
 
@@ -19,6 +19,20 @@ def home():
             db.session.add(new_note)
             db.session.commit()
             flash('Note is added', category='success')
+    return render_template("home.html", user=current_user)
+
+# created view definition of new listing to add
+
+def addListing():
+    if request.method == 'POST':
+        listing = request.form.get('listing')
+        if len(listing) < 1:
+            flash('listing is too short!', category='error')
+        else:
+            new_listing = Listing(data=listing, user_id=current_user.id)
+            db.session.add(new_listing)
+            db.session.commit()
+            flash('listing is added', category='success')
     return render_template("home.html", user=current_user)
 
 @views.route('/delete-note', methods=['POST'])

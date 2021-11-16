@@ -27,7 +27,12 @@ def login():
 
     return render_template("login.html", user=current_user)
 
-@auth.route('/listings', methods=['GET', 'POST'])
+@auth.route('/listings')
+@login_required
+def listings():
+    return render_template("listings.html", user=current_user)
+
+
 
 @auth.route('/logout')
 @login_required

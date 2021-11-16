@@ -23,17 +23,17 @@ def home():
 
 # created view definition of new listing to add
 
-def addListing():
-    if request.method == 'POST':
-        listing = request.form.get('listing')
-        if len(listing) < 1:
-            flash('listing is too short!', category='error')
-        else:
-            new_listing = Listing(data=listing, user_id=current_user.id)
-            db.session.add(new_listing)
-            db.session.commit()
-            flash('listing is added', category='success')
-    return render_template("home.html", user=current_user)
+def listings():
+    # if request.method == 'POST':
+    #     listing = request.form.get('listing')
+    #     if len(listing) < 1:
+    #         flash('listing is too short!', category='error')
+    #     else:
+    #         new_listing = Listing(data=listing, user_id=current_user.id)
+    #         db.session.add(new_listing)
+    #         db.session.commit()
+    #         flash('listing is added', category='success')
+    return render_template("listings.html", user=current_user)
 
 @views.route('/delete-note', methods=['POST'])
 def delete_note():

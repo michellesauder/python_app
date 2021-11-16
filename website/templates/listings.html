@@ -1,7 +1,27 @@
 {% extends "base.html" %}
 {% block title %} Listings {% endblock %}
 {% block content %}
-<h1 align="center">Listings</h1>
+<h1 align="center">Current Listing</h1>
+<ul class="list-group list-group-flush" id="listings">
+    {% for listing in user.listings %}
+    <li class="list-group-item">{{ listing.data }}
+        <button type="button" class="close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </li>
+</ul>
+{% endfor %}
+
+</br>
+<form method="POST" >
+    <textarea id="listing" name="listing" placeholder="" class="form-control"></textarea>
+</br>
+    <div align="center" >
+        <button type="submit" class="btn btn-primary">Add Listing</button>
+    </div>
+</form>
+
+<h1 align="center">Add a Listing</h1>
 <form>
     <!-- <div class="form-group">
       <label for="exampleFormControlInput1">Email address</label>

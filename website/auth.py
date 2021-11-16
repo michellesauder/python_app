@@ -27,6 +27,8 @@ def login():
 
     return render_template("login.html", user=current_user)
 
+@auth.route('/listings', methods=['GET', 'POST'])
+
 @auth.route('/logout')
 @login_required
 def logout():

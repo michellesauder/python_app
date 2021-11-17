@@ -25,19 +25,23 @@ def home():
 @views.route('/listings', methods=['GET', 'POST'])
 def listings():
     if request.method == 'POST':
-        listing = request.form.get('listings')
-        print(listing)
-        new_listing = Listing(data=listing, user_id=current_user)
-        db.session.add(new_listing)
-    # if request.method == 'POST':
-        # listing = request.form.get('listing')
-        # if len(listing) < 1:
-        #     flash('Listing is too short!', category='error')
-        # else:
-            # new_listing = Listing(data=listing, user_id=current_user.id)
-    flash('Listing is too short!', category='error')
-    flash('Listing is added', category='success')
-    return render_template("listings.html", user=current_user)
+        listing = request.form.get('listing')
+        if len(listing) < 1:
+            flash('Listing is too short!', category='error')
+        else:
+            new_listing = Listing(data=listing)
+            user_id = current_user.id
+            print(user_id)
+            db.session.add(new_listing, user_id)
+            db.session.commit()
+            return flash('Listing is added', category='success')
+        # if request.method == 'POST':
+            # listing = request.form.get('listing')
+            # if len(listing) < 1:
+            #     flash('Listing is too short!', category='error')
+            # else:
+                # new_listing = Listing(data=listing, user_id=current_user.id)
+        return render_template("listings.html", user=current_user)
 
 @views.route('/delete-note', methods=['POST'])
 def delete_note():

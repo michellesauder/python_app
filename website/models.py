@@ -23,4 +23,11 @@ class User(db.Model, UserMixin):
 class Listing(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.String(1000))
+    first_name = db.Column(db.String(150))
+    last_name = db.Column(db.String(150))
+    type = db.Column(db.String(150))
+    photo = db.Column(db.String(150))
+    address1 = db.Column(db.String(150))
+    address2 = db.Column(db.String(150))
+    consent = db.Column(db.Boolean)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))

@@ -29,19 +29,22 @@ def listings():
         if len(listing) < 1:
             flash('Listing is too short!', category='error')
         else:
-            new_listing = Listing(data=listing)
-            user_id = current_user.id
-            print(user_id)
-            db.session.add(new_listing, user_id)
+            new_listing = Listing(data=listing, user_id=current_user.id)
+            db.session.add(new_listing)
             db.session.commit()
-            return flash('Listing is added', category='success')
-        # if request.method == 'POST':
-            # listing = request.form.get('listing')
-            # if len(listing) < 1:
-            #     flash('Listing is too short!', category='error')
-            # else:
-                # new_listing = Listing(data=listing, user_id=current_user.id)
-        return render_template("listings.html", user=current_user)
+            flash('Listing added successfully', category='success')
+    return render_template("listings.html", user=current_user) 
+
+@views.route('/delete-listing', methods=['POST'])
+def delete_listing():
+    listing = json.loads(request.data)
+    listingId = listing['listingId']
+    listing = Listing.query.get(listingId)
+    if listing:
+        if listing.user_id == current_user.id:
+            db.session.delete(listing)
+            db.session.commit()
+            return jsonify({'listingId': listing})
 
 @views.route('/delete-note', methods=['POST'])
 def delete_note():

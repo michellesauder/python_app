@@ -2,14 +2,24 @@
 {% block title %} Listings {% endblock %}
 {% block content %}
 <h1 align="center">Current Listing</h1>
+<ul class="list-group list-group-flush" id="listings">
+  {% for listing in user.listings %}
+  <li class="list-group-item">{{ listing.data }}
+      <button type="button" class="close" onClick="deleteListing({{listing.id}})">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </li>
+</ul>
+{% endfor %}
 
 <form method="POST" >
     <textarea id="listing" name="listing" placeholder="" class="form-control" ></textarea>
     <div align="center" >
-        <button type="submit" class="btn btn-primary">Add Listing Note</button>
+        <button type="submit" class="btn btn-primary">Add Listing</button>
     </div>
 </form>
-<form method="POST">
+
+<form>
     <div class="form-group">
       <label for="exampleFormControlSelect1">Who are you?</label>
       <select class="form-control" id="exampleFormControlSelect1">
@@ -20,6 +30,26 @@
         <option>Financial Advisor</option>
       </select>
     </div>
+    <!-- <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+        <label class="form-check-label" for="defaultCheck1">
+          Default checkbox
+        </label>
+      </div> -->
+    <!-- <div class="form-group">
+      <label for="exampleFormControlSelect2">Example multiple select</label>
+      <select multiple class="form-control" id="exampleFormControlSelect2">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+    </div> -->
+    <!-- <div class="form-group">
+      <label for="exampleFormControlTextarea1">Example textarea</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div> -->
     <div class="form-group">
         <div class="row">
             <div class="col">
@@ -68,6 +98,6 @@
             </label>
           </div>
         </div>
-      </form>
+  </form>
 
 {% endblock %}
